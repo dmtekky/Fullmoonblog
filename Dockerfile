@@ -21,5 +21,8 @@ USER node
 # Marker for debugging Dockerfile usage
 RUN echo "CUSTOM DOCKERFILE BEING USED" > /tmp/custom_dockerfile_marker
 
+# THIS LINE IS FOR DEBUGGING ONLY - IT WILL CAUSE THE BUILD TO FAIL IF RENDER USES THIS DOCKERFILE
+RUN exit 1
+
 # Use our custom entrypoint script
 ENTRYPOINT ["/usr/local/bin/custom-entrypoint.sh"]
