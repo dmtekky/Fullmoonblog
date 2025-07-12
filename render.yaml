@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: ghost-blog
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: standard
+    healthCheckPath: /ghost/api/admin/site/
+    command: /usr/local/bin/custom-entrypoint.sh node current/index.js
+    envVars:
+      - key: PORT
+        value: 2368
+      - key: NODE_ENV
+        value: production
+      - key: url
+        sync: false
+      - key: server__host
+        value: 0.0.0.0
+      - key: server__port
+        value: 2368
+      - key: database__client
+        value: postgres
+      - key: database__connection__host
+        fromDatabase:
+          name: ghost-db
+          property: host
+      - key: database__connection__user
+        fromDatabase:
+          name: ghost-db
+          property: user
+      - key: database__connection__password
+        fromDatabase:
+          name: ghost-db
+          property: password
+      - key: database__connection__database
+        fromDatabase:
+          name: ghost-db
+          property: database
+      - key: database__connection__ssl
+        value: true
+
+databases:
+  - name: ghost-db
+    databaseName: ghost
+    ipAllowList: []
