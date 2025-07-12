@@ -18,8 +18,8 @@ ENV server__port="2368"
 # Set the user to 'node' before running the entrypoint
 USER node
 
+# Marker for debugging Dockerfile usage
+RUN echo "CUSTOM DOCKERFILE BEING USED" > /tmp/custom_dockerfile_marker
+
 # Use our custom entrypoint script
 ENTRYPOINT ["/usr/local/bin/custom-entrypoint.sh"]
-
-# Command to start Ghost
-CMD ["node", "current/index.js"]
